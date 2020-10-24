@@ -11,8 +11,8 @@ T1=[[-1,0],[-2,0],[-1,1]]
 T2=T1.copy()
 S1=[[0,1],[-1,1],[-1,2]]
 S2=[[0,-1],[-1,-0],[-1,1]]
-#S3=S1.copy() # Other hole in -1 1 
-S3=S2.copy() # Other hole in -1 1
+S3=S1.copy() # Other hole in -1 1 
+S3other=S2.copy() # Other hole in -1 1
 ValidHole=[-1,1] ######################### WIP
 shapes=[L1,L2,L3,L4,T1,T2,S1,S2,S3]
 
@@ -21,14 +21,25 @@ shapes=[L1,L2,L3,L4,T1,T2,S1,S2,S3]
 shapeOrientations=[]
 for shape in shapes:
     shapeOrientations.append([
-         [   [shape[0][0],shape[0][1]] , [shape[1][0],shape[1][1]] , [shape[2][0],shape[2][1]]   ], # X Y
-         [   [-shape[0][0],shape[0][1]] , [-shape[1][0],shape[1][1]] , [-shape[2][0],shape[2][1]]   ],  # -X Y
-         [   [-shape[0][0],-shape[0][1]] , [-shape[1][0],-shape[1][1]] , [-shape[2][0],-shape[2][1]]   ], # -X-Y
-         [   [shape[0][0],-shape[0][1]] , [shape[1][0],-shape[1][1]] , [shape[2][0],-shape[2][1]]   ], # X -Y
-         [   [shape[0][1],shape[0][0]] , [shape[1][1],shape[1][0]] , [shape[2][1],shape[2][0]]   ], # Y X
-         [   [-shape[0][1],shape[0][0]] , [-shape[1][1],shape[1][0]] , [-shape[2][1],shape[2][0]]   ],  #  -Y X
-         [   [-shape[0][1],-shape[0][0]] , [-shape[1][1],-shape[1][0]] , [-shape[2][1],-shape[2][0]]   ], # -Y-X
-         [   [shape[0][1],-shape[0][0]] , [shape[1][1],-shape[1][0]] , [shape[2][1],-shape[2][0]]   ], #  Y -X
+         [ [shape[i][0],shape[i][1]] for i in range(3)]   , # X Y 
+         [ [-shape[i][0],shape[i][1]] for i in range(3)]  ,  # -X Y
+         [ [-shape[i][0],-shape[i][1]] for i in range(3)] , # -X-Y
+         [ [shape[i][0],-shape[i][1]] for i in range(3)]  , # X -Y
+         [ [shape[i][1],shape[i][0]] for i in range(3)]   , # Y X
+         [ [-shape[i][1],shape[i][0]] for i in range(3)]  ,  #  -Y X
+         [ [-shape[i][1],-shape[i][0]] for i in range(3)] , # -Y-X
+         [ [shape[i][1],-shape[i][0]] for i in range(3)]   #  Y -X
+    ])
+S3OtherOrientation=[]
+S3OtherOrientation.append([
+         [ [S3other[i][0],S3other[i][1]] for i in range(3)]   , # X Y 
+         [ [-S3other[i][0],S3other[i][1]] for i in range(3)]  ,  # -X Y
+         [ [-S3other[i][0],-S3other[i][1]] for i in range(3)] , # -X-Y
+         [ [S3other[i][0],-S3other[i][1]] for i in range(3)]  , # X -Y
+         [ [S3other[i][1],S3other[i][0]] for i in range(3)]   , # Y X
+         [ [-S3other[i][1],S3other[i][0]] for i in range(3)]  ,  #  -Y X
+         [ [-S3other[i][1],-S3other[i][0]] for i in range(3)] , # -Y-X
+         [ [S3other[i][1],-S3other[i][0]] for i in range(3)]   #  Y -X
     ])
 
 ### Define wallClearance and faceClearance function to determine if pieceStates state are acceptable or not ( using index in arguments rather than full lists)
