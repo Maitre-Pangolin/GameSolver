@@ -158,19 +158,18 @@ print("number of combination for first S piece configuration: :",len(fullTable))
 for state in fullTable[:]:
     printBoard(state)
 
-#for t in fullTable:
-#    print(t)
+shapeOrientations[8]=S3OtherOrientation[0]
 
-##### CREATE FULL BOARD STATE TABLE
+statePossible[8]=[(pos,ori) for pos in range(len(possiblePosition)) for ori in range(len(shapeOrientations[0])) if wallClearance(pos,ori,8) and faceClearance(pos,ori,8)]
 
-#### check for repeated value in list function
-#### create piece interference function argument should be (list of ocuppied square [1 to 36], pos_num,orientation_num,piece_num)
-#### CREATE STATE ANALYSIS FUNCTION (return list of bool of length len(fullStates) base on piece re)
-#### Create a possible state list by filtering using bool list
-#### Create a display state function
+fullTable = [[firstPieceStates] for firstPieceStates in statePossible[0]]
+for pieceStates in statePossible[1:9]:
+    temp = []
+    for combinedState in fullTable:
+        for states in pieceStates:
+            temp.append(combinedState+[states])
+    fullTable = list(filter(boardStateValidation,temp))
 
-
-
-
-
-
+print("number of combination for second S piece configuration:",len(fullTable))
+for state in fullTable[:]:
+    printBoard(state)
