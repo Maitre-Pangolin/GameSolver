@@ -59,6 +59,27 @@ S3OtherOrientation.append([
          [ [S3other[i][1],-S3other[i][0]] for i in range(3)]   #  Y -X
     ])
 
+def printPiece(piece_num,orientation_num):
+    indexToFill=[]
+    for y in range(5):
+        temp2=[]
+        for x in range(5):
+            isFound=False
+            for square in shapeOrientations[piece_num][orientation_num]:          
+                if x+1==square[0]+3 and y+1==square[1]+3:
+                    isFound=True              
+            if isFound:
+                temp2.append(str(orientation_num+1))
+            elif x+1==3 and y+1==3:
+                temp2.append("0")
+            else:
+                temp2.append("x")    
+        indexToFill.append(" ".join(temp2)) 
+    print("Piece :",str(piece_num+1)," Orientation :",str(orientation_num))  
+    for line in indexToFill[::-1]:
+        print(line) 
+    print("\n") 
+
 ### Define wallClearance and faceClearance function to determine if pieceStates state are acceptable or not ( using index in arguments rather than full lists)
 
 def wallClearance(pos_num,orientation_num,piece_num):
@@ -88,6 +109,34 @@ def boardStateValidation(combinedStates):
                 return False
     return True
 
+def printBoard(combinedStates):
+    boardline=["0" for x in range(6*6)]
+    origins=['a','b','c','d','e','f','g','h','i']
+    filling=['A','B','C','D','E','F','G','H','I']
+    for piece,state in enumerate(combinedStates):
+        pos = state[0]
+        ori = state[1]
+        x=possiblePosition[pos][0]
+        y=possiblePosition[pos][1]
+        loc=x+6*(y-1)
+        boardline.pop(loc-1)
+        boardline.insert(loc-1,origins[piece])
+        for square in shapeOrientations[piece][ori]:
+            x=possiblePosition[pos][0]+square[0]
+            y=possiblePosition[pos][1]+square[1]
+            loc=x+6*(y-1)
+            boardline.pop(loc-1)
+            boardline.insert(loc-1,filling[piece])    
+    board=[]
+    for y in range(6):
+        temp=[]
+        for x in range(6):
+            loc=x+6*(y) 
+            temp.append(boardline[loc])
+        board.append(" ".join(temp))
+    for line in board[::-1]:
+        print(line)
+    print("\n")
 # Create all possible state for a piece (position , orientation)
 
 statePossible = [[(pos,ori) for pos in range(len(possiblePosition)) for ori in range(len(shapeOrientations[0])) if wallClearance(pos,ori,piece) and faceClearance(pos,ori,piece)] for piece in range(len(shapeOrientations))] # In love with comprehension list 
