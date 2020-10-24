@@ -1,5 +1,22 @@
+#possiblePosition=[[1,1],[6,1],[3,2],[2,3],[6,3],[4,4],[1,5],[3,5],[6,5],[5,6]] # Grid 1
+#possiblePosition=[[5,1],[2,2],[4,2],[1,3],[2,3],[5,3],[4,4],[5,5],[1,6],[4,6]] # Grid 2
+#possiblePosition=[[2,1],[5,1],[4,2],[1,3],[3,3],[6,3],[2,4],[1,5],[3,5],[5,5]] # Grid 3
+#possiblePosition=[[3,1],[6,1],[2,3],[4,3],[1,4],[3,4],[6,4],[5,5],[2,6],[4,6]] # Grid 4
+#possiblePosition=[[1,1],[5,1],[3,2],[1,3],[2,4],[4,4],[6,4],[3,5],[5,5],[4,6]] # Grid 5 WORKING 
+#possiblePosition=[[1,1],[6,1],[2,2],[4,3],[2,4],[5,4],[1,5],[4,5],[6,5],[3,6]] # Grid 6  
+#possiblePosition=[[1,1],[6,1],[3,2],[5,2],[4,3],[2,4],[4,4],[6,4],[1,5],[3,5]] # Grid 7
+#possiblePosition=[[1,1],[6,1],[2,3],[4,3],[6,3],[3,4],[2,5],[4,5],[1,6],[5,6]] # Grid 8
+#possiblePosition=[[5,1],[2,2],[1,3],[5,3],[6,4],[2,5],[4,5],[1,6],[3,6],[5,6]] # Grid 9
+#possiblePosition=[[1,1],[3,1],[5,1],[2,3],[4,3],[6,3],[3,4],[4,4],[1,6],[4,6]] # Grid 10
+#possiblePosition=[[1,1],[5,1],[1,3],[5,3],[3,4],[6,4],[1,5],[4,5],[2,6],[5,6]] # Grid 11
+possiblePosition=[[5,1],[3,2],[2,3],[5,3],[2,4],[4,4],[6,4],[1,5],[3,5],[5,5]] # Grid 12
+#possiblePosition=[[2,1],[6,1],[1,2],[5,2],[2,4],[6,4],[4,5],[1,6],[3,6],[5,6]] # Grid 19
 
-possiblePosition=[[1,1],[6,1],[3,2],[2,3],[6,3],[4,4],[1,5],[3,5],[6,5],[5,6]]
+#possiblePosition=[[x+1,y+1] for x in range(6) for y in range(6)] # all pos
+#possiblePosition=[[1,1],[4,1],[1,3],[3,3],[6,3],[4,4],[6,4],[1,5],[2,5],[5,5]] #mine
+#possiblePosition=[[1,1],[1,2],[4,2],[6,2],[2,3],[3,3],[1,4],[6,4],[4,5],[4,6]] #mine 2
+#possiblePosition=[[3,1],[5,2],[1,3],[6,3],[2,4],[4,4],[1,5],[3,5],[6,5],[6,6]] #mine 3
+#possiblePosition=[[2,1],[6,1],[3,2],[5,2],[1,4],[3,4],[6,4],[2,5],[3,6],[6,6]] # rama
 
 # Pieces geometry definition (note that 0,0 represents the piece hole)
 
@@ -57,6 +74,19 @@ def faceClearance(pos_num,orientation_num,piece_num):
                 return False
     return True
 
+def boardStateValidation(combinedStates):
+    boardSquareOccupied=[]
+    for index,pieceStates in enumerate(combinedStates):
+        x_o=possiblePosition[pieceStates[0]][0]
+        y_o=possiblePosition[pieceStates[0]][1]
+        boardSquareOccupied.append(x_o+(y_o-1)*6)  #Indexage en ligne de la grille 6x6 de coordonnes d'origine (1,1)
+        for square in shapeOrientations[index][pieceStates[1]]:
+            x=x_o+square[0]
+            y=y_o+square[1]
+            boardSquareOccupied.append(x+(y-1)*6)           
+            if len(boardSquareOccupied) != len( set(boardSquareOccupied)) : # Use a set to determine if there is any duplicates
+                return False
+    return True
 
 # Create all possible state for a piece (position , orientation)
 
@@ -65,15 +95,16 @@ statePossible = [[(pos,ori) for pos in range(len(possiblePosition)) for ori in r
 # Create full board states combination
 
 fullTable = [[firstPieceStates] for firstPieceStates in statePossible[0]]
-
-for pieceStates in statePossible[1:2]:
+for pieceStates in statePossible[1:]:
     temp = []
     for combinedState in fullTable:
         for states in pieceStates:
             temp.append(combinedState+[states])
-    fullTable = temp[:]
+    fullTable = list(filter(boardStateValidation,temp))
 
-# FULL TABLE might be too big too derive entirely / try to build in state validation and table cleaning after fullTable assignment 
+print("number of combination for first S piece configuration: :",len(fullTable))
+for state in fullTable[:]:
+    printBoard(state)
 
 #for t in fullTable:
 #    print(t)
