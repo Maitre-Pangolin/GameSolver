@@ -92,6 +92,9 @@ def faceClearance(pos_num,orientation_num,piece_num):
     for square in shapeOrientations[piece_num][orientation_num]:
         for otherPos in possiblePosition:
             if square[0]+possiblePosition[pos_num][0] == otherPos[0] and square[1]+possiblePosition[pos_num][1] == otherPos[1]:
+                if piece_num ==8 and square == shapeOrientations[piece_num][orientation_num][2]:
+                    return True
+                else:
                 return False
     return True
 
