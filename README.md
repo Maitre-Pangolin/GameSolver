@@ -80,7 +80,7 @@ Fixing all thoses issues I was entirely sure that now the algorithm would work a
 
 I run the code with all the confidence in the world and : **0 state possible**
 
-![it](Itcrowd.gif)
+![itgif](Itcrowd.gif)
 
 It was starting to get annoying but I got an idea. I needed to be sure that the puzzle was solvable, it makes no sense that somebody would sell an unsolvable puzzle but I still needed to be sure. I then decided to build a square with the pieces without a grid, and to then derive the grid from this state effectively giving me a problem with a **known solution.**
 
@@ -99,7 +99,7 @@ I then tasked my roomates to produce more square without bothering with a grid a
 
   On the first reseller website I find there is a picture of the puzzle completed for grid #1, I immediatly think that my algorithm is wrong and proceed to build the solution with my own game and that's when I realized **OUR GAME HAS WRONG PIECES !**
 
-  ![tpi](Tpiece.png)
+  ![tpiece](Tpiece.png)
 
   My life is making sense again ! I run the algorithm with the correct T-piece and I can finally find the solution for every grid ! I can go to sleep I deserve it.
 
