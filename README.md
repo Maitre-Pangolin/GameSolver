@@ -99,7 +99,7 @@ I then tasked my roomates to produce more square without bothering with a grid a
 
   On the first reseller website I find there is a picture of the puzzle completed for grid #1, I immediatly think that my algorithm is wrong and proceed to build the solution with my own game and that's when I realized **OUR GAME HAS WRONG PIECES !**
 
-  ![tpiece](Tpiece.png)
+  ![tpi](Tpiece.jpg)
 
   My life is making sense again ! I run the algorithm with the correct T-piece and I can finally find the solution for every grid ! I can go to sleep I deserve it.
 
