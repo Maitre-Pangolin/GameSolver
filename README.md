@@ -80,7 +80,7 @@ Fixing all thoses issues I was entirely sure that now the algorithm would work a
 
 I run the code with all the confidence in the world and : **0 state possible**
 
-![itgif](Itcrowd.gif)
+![itgif](ItCrowd.gif)
 
 It was starting to get annoying but I got an idea. I needed to be sure that the puzzle was solvable, it makes no sense that somebody would sell an unsolvable puzzle but I still needed to be sure. I then decided to build a square with the pieces without a grid, and to then derive the grid from this state effectively giving me a problem with a **known solution.**
 
